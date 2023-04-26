@@ -56,10 +56,22 @@ extension ViewController : UITableViewDataSource{
         
         return studentTableViewCell ?? UITableViewCell()
     }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if (editingStyle == UITableViewCell.EditingStyle.delete){
+            studentTableView.beginUpdates()
+            studentTableView.deleteRows(at: [indexPath], with: .fade)
+            students.remove(at: indexPath.row)
+            studentTableView.endUpdates()
+        }
+    }
 }
 
 extension ViewController : UITableViewDelegate{
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 165.0
     }
+
+    
 }
+
